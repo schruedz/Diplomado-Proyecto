@@ -69,7 +69,7 @@ async function uploadImage(file, productId, onProgress) {
 async function deleteImageByPath(path) {
   try {
     await deleteObject(ref(storage, path));
-  } catch (_) {
+  } catch{
     // Silenciar (si ya no existe)
   }
 }

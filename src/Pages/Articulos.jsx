@@ -86,11 +86,8 @@ export default function Articulos() {
 
       setHasMore(snap.size === PAGE_SIZE);
       setLastDoc(snap.docs[snap.docs.length - 1] || null);
-    } catch (err) {
-      console.error("Error Firestore (plan principal). Intentando plan B:", err);
-      setErrorMsg(
-        "No se pudo cargar con el orden por fecha. Probando un modo compatible…"
-      );
+    } catch {
+ 
 
       // ---- Plan B: sin orderBy para evitar requerir índice compuesto ----
       try {
