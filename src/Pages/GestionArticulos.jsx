@@ -28,7 +28,6 @@ const COLLECTION = "articulos";
 
 const emptyProduct = {
   title: "",
-  slug: "",
   price: "",
   stock: "",
   category: "",
@@ -36,17 +35,6 @@ const emptyProduct = {
   active: true,
   images: [],
 };
-
-function slugify(s) {
-  return (s || "")
-    .toString()
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
 
 function validateProduct(p) {
   const errors = {};
@@ -110,11 +98,10 @@ export default function GestionArticulos() {
   const qNormalized = useMemo(() => qText.trim().toLowerCase(), [qText]);
 
   useEffect(() => {
-    // Cargar primera página al abrir
     fetchPage(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // reconstruye categorías a partir de los artículos cargados
+
   useEffect(() => {
     const set = new Set();
     for (const p of items) {
@@ -130,8 +117,6 @@ export default function GestionArticulos() {
       const constraints = [];
 
       if (onlyActive) constraints.push(where("active", "==", true));
-      // Búsqueda simple por title/slug que contenga texto (cliente)
-      // Nota: Firestore no admite contains sin índices compuestos; aquí filtramos en el cliente.
       constraints.push(orderBy("createdAt", "desc"));
       if (!reset && lastDoc) constraints.push(startAfter(lastDoc));
       constraints.push(limit(pageSize));
@@ -139,12 +124,10 @@ export default function GestionArticulos() {
       const snap = await getDocs(query(base, ...constraints));
       let docsArr = snap.docs.map((d) => ({ id: d.id, ...d.data() }));
 
-      // Filtro de búsqueda en cliente
       if (qNormalized) {
         docsArr = docsArr.filter((d) => {
           const hay =
             d.title?.toLowerCase().includes(qNormalized) ||
-            d.slug?.toLowerCase().includes(qNormalized) ||
             d.category?.toLowerCase().includes(qNormalized);
           return hay;
         });
@@ -176,7 +159,6 @@ export default function GestionArticulos() {
     setEditingId(p.id);
     setForm({
       title: p.title || "",
-      slug: p.slug || "",
       price: p.price ?? "",
       stock: p.stock ?? "",
       category: p.category || "",
@@ -200,10 +182,7 @@ export default function GestionArticulos() {
     try {
       setSaving(true);
       setUploadPct(0);
-
-      // Si estamos creando, usamos un "tempId" local; al guardar se re-suben con productId real si quieres.
-      // Para simplificar, subimos usando slug o 'temp' y luego se quedan así (válido).
-      const pid = editingId || form.slug || "temp";
+      const pid = editingId || "temp";
 
       const uploaded = [];
       for (const file of files) {
@@ -247,7 +226,6 @@ export default function GestionArticulos() {
       category: normalizedCategory,
       price: Number(form.price),
       stock: Number(form.stock),
-      slug: form.slug?.trim() || slugify(form.title),
     };
     const v = validateProduct(data);
     setErrors(v);
@@ -271,7 +249,6 @@ export default function GestionArticulos() {
           createdAt: serverTimestamp(),
           updatedAt: serverTimestamp(),
         });
-        // Actualiza el path real si quieres reubicar imágenes; por simplicidad las dejamos donde están.
         setItems((prev) => [{ id: refDoc.id, ...data }, ...prev]);
         clearForm();
         alert("Artículo creado");
@@ -302,7 +279,6 @@ export default function GestionArticulos() {
     if (!confirm(`¿Eliminar "${p.title}"? Esta acción no se puede deshacer.`))
       return;
     try {
-      // Borrar imágenes
       if (Array.isArray(p.images)) {
         await Promise.all(
           p.images.map((img) =>
@@ -334,15 +310,6 @@ export default function GestionArticulos() {
               placeholder="Ej: Silla Gamer Pro"
             />
             {errors.title && <small className="ga-error">{errors.title}</small>}
-          </div>
-          <div className="ga-col">
-            <label>Slug (opcional)</label>
-            <input
-              name="slug"
-              value={form.slug}
-              onChange={handleChange}
-              placeholder="silla-gamer-pro"
-            />
           </div>
         </div>
 
@@ -379,7 +346,7 @@ export default function GestionArticulos() {
               name="category"
               value={form.category}
               onChange={handleChange}
-              list="ga-categories" // autocompletar basado en categorías existentes
+              list="ga-categories"
               placeholder="Ej: Sillas"
             />
             <datalist id="ga-categories">
@@ -468,7 +435,7 @@ export default function GestionArticulos() {
       <div className="ga-toolbar">
         <input
           className="ga-search"
-          placeholder="Buscar por título, slug o categoría…"
+          placeholder="Buscar por título o categoría…"
           value={qText}
           onChange={(e) => setQText(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && resetPaginationAndSearch()}
@@ -533,7 +500,6 @@ export default function GestionArticulos() {
                 </td>
                 <td>
                   <div className="ga-title">{p.title}</div>
-                  <div className="ga-sub">{p.slug}</div>
                 </td>
                 <td>${Number(p.price || 0).toLocaleString()}</td>
                 <td>{p.stock ?? 0}</td>

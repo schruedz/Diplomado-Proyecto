@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "./firebase";
 import { doc, getDoc } from "firebase/firestore";
-import { useCartStore } from "../Components/useCartStore";
 import "./NavBar.css";
 
 const NavBar = () => {
@@ -15,7 +14,7 @@ const NavBar = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const navigate = useNavigate();
 
-  const totalQty = useCartStore((s) => s.totalQty());
+
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {

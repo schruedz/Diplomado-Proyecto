@@ -6,7 +6,7 @@ function Home() {
   return (
     <header className="hero">
       <div className="hero-content">
-        <h1>Bienvenido a la tienda</h1>
+        <h1>Bienvenido a MarkGrow</h1>
         <p>Explora artículos y adquierelos fácilmente</p>
       </div>
     </header>
