@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
-import Login from "./Pages/Login";        // 👈 Ajusta la ruta si tu Login está en otra carpeta
-import Register from "./Pages/Register";  // 👈 Solo si tienes componente Register
-import Articulos from "./Pages/Articulos"; // 👈 Crea este componente
+import Login from "./Pages/Login";
+import Register from "./Pages/Register";     // si tienes registro
+import Articulos from "./Pages/Articulos";   // tu componente de artículos
+import GestionArticulos from "./Pages/GestionArticulos"; // 👈 nuevo
 import "./App.css";
 
 function App() {
@@ -10,7 +11,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        {/* Ruta principal */}
+        {/* Página principal */}
         <Route path="/" element={<h1>Bienvenido al Home</h1>} />
 
         {/* Login */}
@@ -22,7 +23,10 @@ function App() {
         {/* Artículos */}
         <Route path="/articulos" element={<Articulos />} />
 
-        {/* Ruta por defecto (si no existe la ruta) */}
+        {/* Gestión de artículos (solo admin debería verla en el NavBar) */}
+        <Route path="/gestion-articulos" element={<GestionArticulos />} />
+
+        {/* Ruta por defecto */}
         <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
       </Routes>
     </>
