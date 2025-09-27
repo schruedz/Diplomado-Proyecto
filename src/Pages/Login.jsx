@@ -1,30 +1,39 @@
 import React, { useState } from "react";
-import { auth } from "../Components/firebase"; // asegúrate que el path es correcto
+import { auth } from "../Components/firebase";
 import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import "../Pages/Login.css"
+import { signInWithEmailAndPassword, setPersistence, browserLocalPersistence } from "firebase/auth";
+import "../Pages/Login.css";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState(""); // estado para manejar errores
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // limpiar error previo
+    setError("");
+    setLoading(true);
     try {
+      await setPersistence(auth, browserLocalPersistence);
       await signInWithEmailAndPassword(auth, email, password);
-      alert("Inicio de sesión exitoso");
-      navigate("/"); // Redirigir a la página principal después del login
-    } catch (error) {
-      console.error("Error iniciando sesión:", error);
-      setError("Credenciales incorrectas o usuario no registrado");
+      navigate("/");
+    } catch (err) {
+      const map = {
+        "auth/invalid-credential": "Correo o contraseña inválidos.",
+        "auth/user-not-found": "Usuario no registrado.",
+        "auth/wrong-password": "Contraseña incorrecta.",
+        "auth/too-many-requests": "Demasiados intentos. Intenta más tarde.",
+      };
+      setError(map[err.code] || "Error iniciando sesión.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleRegister = () => {
-    navigate("/register"); // Redirigir a la página de registro
+    navigate("/register");
   };
 
   return (
@@ -54,8 +63,8 @@ const Login = () => {
           />
         </div>
 
-        <button type="submit" className="btn-primary">
-          Acceder
+        <button type="submit" className="btn-primary" disabled={loading}>
+          {loading ? "Accediendo..." : "Acceder"}
         </button>
 
         <button type="button" className="btn-secondary" onClick={handleRegister}>

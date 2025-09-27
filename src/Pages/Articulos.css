@@ -1,0 +1,164 @@
+/* Contenedor principal */
+.prod-container {
+  max-width: 1200px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+/* Barra de búsqueda y filtros */
+.prod-toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.prod-search {
+  flex: 1;
+  min-width: 220px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.prod-select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+}
+
+.prod-secondary {
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.prod-cart-chip {
+  margin-left: auto;
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Grid de productos */
+.prod-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .prod-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .prod-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tarjeta de producto */
+.prod-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.prod-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+/* Imagen */
+.prod-thumb {
+  aspect-ratio: 1 / 1;
+  background: #f9fafb;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.prod-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prod-thumb--empty {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+/* Cuerpo de la tarjeta */
+.prod-body {
+  padding: 12px;
+  display: grid;
+  gap: 6px;
+}
+
+.prod-title {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.prod-price {
+  font-weight: 700;
+}
+
+.prod-stock {
+  color: #6b7280;
+  font-size: 13px;
+}
+
+/* Botón */
+.prod-actions {
+  padding: 12px;
+  margin-top: auto;
+}
+
+.prod-primary {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #1f6feb;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.prod-primary:hover:not(:disabled) {
+  background: #1e4fba;
+}
+
+.prod-primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Estados */
+.prod-empty {
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+}
+
+/* Paginación */
+.prod-pagination {
+  display: flex;
+  justify-content: center;
+  margin: 16px 0;
+}

@@ -1,0 +1,45 @@
+.ga-container { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
+.ga-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.ga-col { display: flex; flex-direction: column; gap: 6px; }
+.ga-col input, .ga-col textarea { padding: 10px; border: 1px solid #ddd; border-radius: 10px; }
+.ga-col label { font-weight: 600; }
+
+.ga-upload .ga-images { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.ga-image { position: relative; width: 96px; }
+.ga-image img { width: 96px; height: 96px; object-fit: cover; border-radius: 10px; border: 1px solid #eee; }
+.ga-image .ga-danger { position: absolute; bottom: -8px; left: 0; right: 0; font-size: 12px; padding: 4px; }
+
+.ga-switch { align-items: flex-start; justify-content: flex-end; }
+
+.ga-actions { margin-top: 12px; display: flex; gap: 8px; }
+.ga-primary, .ga-secondary, .ga-danger, .ga-small { padding: 8px 12px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; }
+.ga-primary { background: #1f6feb; color: #fff; }
+.ga-secondary { background: #f3f4f6; }
+.ga-danger { background: #fee2e2; color: #991b1b; }
+.ga-small { font-size: 12px; padding: 6px 8px; }
+.ga-error { color: #b91c1c; font-size: 12px; }
+
+.ga-progress { font-size: 12px; color: #374151; margin-top: 6px; }
+
+.ga-toolbar { display: flex; gap: 12px; align-items: center; margin: 24px 0 12px; }
+.ga-search { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 10px; }
+.ga-check { display: flex; align-items: center; gap: 8px; }
+
+.ga-table-wrap { overflow-x: auto; }
+.ga-table { width: 100%; border-collapse: collapse; }
+.ga-table th, .ga-table td { border-bottom: 1px solid #eee; padding: 10px; text-align: left; }
+.ga-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid #eee; }
+.ga-thumb--empty { width: 48px; height: 48px; border-radius: 8px; background: #f3f4f6; display: grid; place-items: center; color: #9ca3af; }
+
+.ga-title { font-weight: 600; }
+.ga-sub { font-size: 12px; color: #6b7280; }
+
+.ga-badge { padding: 4px 8px; border-radius: 999px; font-size: 12px; }
+.ga-badge.ok { background: #dcfce7; color: #166534; }
+.ga-badge.off { background: #fee2e2; color: #991b1b; }
+
+.ga-actions-cell { display: flex; gap: 6px; }
+.ga-pagination { margin: 12px 0; display: flex; justify-content: center; }
+@media (max-width: 900px) {
+  .ga-row { grid-template-columns: 1fr; }
+}

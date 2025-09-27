@@ -1,9 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import Login from "./Pages/Login";
-import Register from "./Pages/Register";     // si tienes registro
-import Articulos from "./Pages/Articulos";   // tu componente de artículos
-import GestionArticulos from "./Pages/GestionArticulos"; // 👈 nuevo
+import Register from "./Pages/Register";
+import Articulos from "./Pages/Articulos";
+import GestionArticulos from "./Pages/GestionArticulos";
+import ProtectedRoute from "./Components/ProtectedRoute";
+import AdminRoute from "./Components/AdminRoute";
 import "./App.css";
 
 function App() {
@@ -11,22 +13,29 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        {/* Página principal */}
         <Route path="/" element={<h1>Bienvenido al Home</h1>} />
 
-        {/* Login */}
         <Route path="/login" element={<Login />} />
-
-        {/* Registro */}
         <Route path="/register" element={<Register />} />
 
-        {/* Artículos */}
-        <Route path="/articulos" element={<Articulos />} />
+        <Route
+          path="/articulos"
+          element={
+            <ProtectedRoute>
+              <Articulos />
+            </ProtectedRoute>
+          }
+        />
 
-        {/* Gestión de artículos (solo admin debería verla en el NavBar) */}
-        <Route path="/gestion-articulos" element={<GestionArticulos />} />
+        <Route
+          path="/gestion-articulos"
+          element={
+            <AdminRoute>
+              <GestionArticulos />
+            </AdminRoute>
+          }
+        />
 
-        {/* Ruta por defecto */}
         <Route path="*" element={<h1>404 - Página no encontrada</h1>} />
       </Routes>
     </>
