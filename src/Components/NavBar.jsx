@@ -59,40 +59,32 @@ const NavBar = () => {
 
   return (
     <nav className="navbar">
-      <ul className="nav-list">
-        <li className="nav-item">
-          <Link to="/" className="nav-link">Inicio</Link>
-        </li>
-
-        {!loadingAuth && !isLoggedIn && (
-          <li className="nav-item">
-            <Link to="/login" className="nav-link">Login</Link>
-          </li>
+      {/* Izquierda */}
+      <div className="nav-left">
+        <Link to="/" className="nav-link">Inicio</Link>
+        {isLoggedIn && (
+          <Link to="/articulos" className="nav-link">Artículos</Link>
         )}
+        {isLoggedIn && role === "admin" && (
+          <Link to="/gestion-articulos" className="nav-link">Gestión Artículos</Link>
+        )}
+      </div>
 
-        {!loadingAuth && isLoggedIn && (
+      {/* Derecha */}
+      <div className="nav-right">
+        {!loadingAuth && !isLoggedIn && (
+          <Link to="/login" className="nav-link">Login</Link>
+        )}
+        {isLoggedIn && (
           <>
-            <li className="nav-item">
-              <Link to="/articulos" className="nav-link">Artículos</Link>
-            </li>
-
-            {role === "admin" && (
-              <li className="nav-item">
-                <Link to="/gestion-articulos" className="nav-link">Gestión Artículos</Link>
-              </li>
-            )}
-
-            <li className="nav-item user-chip">{userName}</li>
-            <li className="nav-item user-chip">Carrito: {totalQty}</li>
-
-            <li className="nav-item">
-              <button onClick={handleLogout} className="logout-button">
-                Cerrar Sesión
-              </button>
-            </li>
+            <span className="user-chip">{userName}</span>
+            <button onClick={handleLogout} className="logout-button">
+              Cerrar Sesión
+            </button>
           </>
         )}
-      </ul>
+      </div>
+
       {alertVisible && <div className="alert-message">{alertMessage}</div>}
     </nav>
   );

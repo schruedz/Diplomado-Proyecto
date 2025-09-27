@@ -6,6 +6,7 @@ import Articulos from "./Pages/Articulos";
 import GestionArticulos from "./Pages/GestionArticulos";
 import ProtectedRoute from "./Components/ProtectedRoute";
 import AdminRoute from "./Components/AdminRoute";
+import Home from "./Pages/Home";  // 👈 importa el nuevo componente
 import "./App.css";
 
 function App() {
@@ -13,7 +14,7 @@ function App() {
     <>
       <NavBar />
       <Routes>
-        <Route path="/" element={<h1>Bienvenido al Home</h1>} />
+        <Route path="/" element={<Home />} />  {/* 👈 cambia aquí */}
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

@@ -1,0 +1,27 @@
+.hero {
+  height: 100vh;
+  background: url("/fondo.jpg") center/cover no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.hero-content {
+  background: rgba(255, 255, 255, 0.25); /* semitransparente */
+  backdrop-filter: blur(10px);           /* efecto glass */
+  padding: 40px 60px;
+  border-radius: 12px;
+  text-align: center;
+  color: #111;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 15px;
+}
+
+.hero-content p {
+  font-size: 20px;
+  color: #222;
+}

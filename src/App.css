@@ -1,26 +1,35 @@
-html, body {
-  height: 100%;
-  margin: 0;
+.app {
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* Hero con fondo */
+.hero {
+  height: 100vh;
+  background: url("/public/fondo.jpg") center/cover no-repeat;
   display: flex;
-  flex-direction: column;
-}
-
-.app-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; 
-}
-
-.content {
-  flex: 1;
-  padding-bottom: 50px; 
-}
-
-footer {
-  background-color: #004b70; 
-  color: white;
-  text-align: center;
-  padding: 10px 0;
+  justify-content: center;
+  align-items: center;
   position: relative;
-  z-index: 10;
+}
+
+/* Caja con el texto */
+.hero-content {
+  background: rgba(255, 255, 255, 0.4); /* fondo semitransparente */
+  backdrop-filter: blur(10px); /* efecto glass */
+  padding: 40px 60px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #111;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

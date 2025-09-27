@@ -51,11 +51,17 @@
   .input:not(:placeholder-shown) + .label {
     transform: translateY(-14px);
     font-size: 12px;
-    color: #009fc6;
+    color: #0197bd
+
+
+;
   }
   
   .btn-primary {
-    background-color: #009fc6;
+    background-color: #0197bd
+
+
+;
     color: white;
     font-weight: 700;
     font-size: 1rem;
@@ -68,7 +74,10 @@
   }
   
   .btn-primary:hover {
-    background-color: #007b8f;
+    background-color: #0197bd
+
+
+;
   }
   
   .btn-secondary {
