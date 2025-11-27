@@ -14,8 +14,6 @@ const NavBar = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const navigate = useNavigate();
 
-
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -60,17 +58,21 @@ const NavBar = () => {
     <nav className="navbar">
       {/* Izquierda */}
       <div className="nav-left">
-        <Link to="/" className="nav-link">Inicio</Link>
+        <Link to="/" className="nav-logo">
+          <img src="/logotunealo.png" alt="Logo Tunealo" className="logo-img" />
+        </Link>
+
+      </div>
+
+      {/* Derecha */}
+      
+      <div className="nav-right">
         {isLoggedIn && (
-          <Link to="/articulos" className="nav-link">Artículos</Link>
+          <Link to="/articulos" className="nav-link">Shop</Link>
         )}
         {isLoggedIn && role === "admin" && (
           <Link to="/gestion-articulos" className="nav-link">Gestión Artículos</Link>
         )}
-      </div>
-
-      {/* Derecha */}
-      <div className="nav-right">
         {!loadingAuth && !isLoggedIn && (
           <Link to="/login" className="nav-link">Login</Link>
         )}
